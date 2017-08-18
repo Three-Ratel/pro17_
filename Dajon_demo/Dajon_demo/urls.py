@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^index/', views.index),
     url(r'^login_in/', views.login_in),
 
-    url(r'^articles/2004',views.year_2004),
+# 无名分组 传参 ()中为参数   类似re.findall
+    url(r'^articles/(\d{4})$',views.year),
+    url(r'^articles/(\d{4})/(\d{2})', views.month),
 ]
