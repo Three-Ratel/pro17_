@@ -1,4 +1,4 @@
-"""Dajon_demo URL Configuration
+"""damo2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -13,23 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.contrib import admin
-
 from app01 import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^login_in/', views.login_in),
-    url(r'^app01/', include('app01.urls')),
-    url(r"^back",views.back)
-    #     url(r'^index/', views.index),
-
-    # #有名分组
-    #
-    #     url(r'^articles/(?P<year>\d{4})/(?P<month>\d{2})$', views.year_month),
-    #
-    # # 无名分组 传参 ()中为参数   类似re.findall
-    #     url(r'^articles/(\d{4})$',views.year),
-    #     url(r'^articles/(\d{4})/(\d{2})', views.month),
+    url(r'^timer/', views.timer),
 ]

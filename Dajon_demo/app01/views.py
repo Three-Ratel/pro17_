@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse,redirect
 # Create your views here.
 
 import datetime
@@ -15,8 +15,8 @@ def login_in(request):
         username = request.POST.get("user")
         password = request.POST.get("pwd")
         if username == "yuan" and password == "123":
-            return HttpResponse("登陆成功")
-        return render(request, "lgoin_in.html")
+            return redirect("/back")
+    return render(request, "lgoin_in.html")
 
 
 def year(request, year):
@@ -25,3 +25,15 @@ def year(request, year):
 
 def month(request, year, month):
     return HttpResponse("year: %s month:%s" % (year, month))
+
+
+def year_month(request, year, month):
+    return HttpResponse("year: %s month:%s" % (year, month))
+
+
+def sendByget(request):
+    print(".....>>>", request.GET)
+    return HttpResponse("ok")
+def back(request):
+    name='xp'
+    return render(request,"back.html",locals())

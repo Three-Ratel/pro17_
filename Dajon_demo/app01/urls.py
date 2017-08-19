@@ -19,17 +19,17 @@ from django.contrib import admin
 from app01 import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^login_in/', views.login_in),
-    url(r'^app01/', include('app01.urls')),
-    url(r"^back",views.back)
-    #     url(r'^index/', views.index),
+    # get发送数据
+    url(r"sendByget", views.sendByget),
 
-    # #有名分组
-    #
-    #     url(r'^articles/(?P<year>\d{4})/(?P<month>\d{2})$', views.year_month),
-    #
-    # # 无名分组 传参 ()中为参数   类似re.findall
-    #     url(r'^articles/(\d{4})$',views.year),
-    #     url(r'^articles/(\d{4})/(\d{2})', views.month),
+
+    url(r'^index/', views.index),
+   # url(r'^login_in/', views.login_in),
+    # 有名分组
+
+    url(r'^articles/(?P<year>\d{4})/(?P<month>\d{2})$', views.year_month),
+
+    # 无名分组 传参 ()中为参数   类似re.findall
+    url(r'^articles/(\d{4})$', views.year),
+    url(r'^articles/(\d{4})/(\d{2})', views.month),
 ]
