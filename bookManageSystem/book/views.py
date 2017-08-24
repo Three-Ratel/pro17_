@@ -26,3 +26,7 @@ def delete(request,):
     id=request.GET.get("id")
     Book.objects.filter(id=id).delete()
     return redirect("/index/")
+def edit(request):
+    Book.objects.filter(id=id).update(title="title")
+    # Book.objects.filter()
+    return redirect("/index/")

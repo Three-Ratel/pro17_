@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^addBook/', views.addBook),
     url(r'^delete/', views.delete),
     url(r'^addBook/', views.addBook),
+url(r'^edit/', views.edit),
 ]
