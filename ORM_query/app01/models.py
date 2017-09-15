@@ -8,7 +8,9 @@ class Book(models.Model):
     price=models.DecimalField(max_digits=6,decimal_places=2,)
     #外键建在一对多的多的表中(建在子表中)
     publisher=models.ForeignKey("Publish")
-    # authors=models.ManyToManyField("Author") #创建第三张表
+    authors=models.ManyToManyField("Author") #创建第三张表
+    def __str__(self):
+        return self.title
 class Publish(models.Model):
     name=models.CharField(max_length=32)
     email=models.EmailField(max_length=32)
@@ -18,7 +20,8 @@ class Publish(models.Model):
 class Author(models.Model):
     name=models.CharField(max_length=32)
 
-class Book2Author(models.Model):
-    book=models.ForeignKey("Book")
-    author=models.ForeignKey("Author")
+# class Book2Author(models.Model):
+#     book=models.ForeignKey("Book")
+#     author=models.ForeignKey("Author")
+
 

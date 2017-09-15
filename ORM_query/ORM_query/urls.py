@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'^index/', views.index),
     url(r'^add/', views.add),
     url(r'^query/', views.query),
+    url(r'^relate_query/', views.relate_query),
+    url(r'^query2/', views.query2),  # 聚合分组
+    url(r'^query3/', views.query3),  # f查询q查询
 ]
