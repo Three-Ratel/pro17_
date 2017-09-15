@@ -19,7 +19,7 @@
     <table id="13" parent="2" name="django_session"/>
     <table id="14" parent="2" name="sqlite_master"/>
     <table id="15" parent="2" name="sqlite_sequence"/>
-    <column id="16" parent="3" name="nid">
+    <column id="16" parent="3" name="id">
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
@@ -35,7 +35,7 @@
       <NotNull>1</NotNull>
     </column>
     <key id="19" parent="3">
-      <ColNames>nid</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
     <column id="20" parent="4" name="id">
