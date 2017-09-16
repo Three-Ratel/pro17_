@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body style="background-color: white">
+
+<div style="z-index: 99;position: fixed;width: 100%">
+    <ul style="background-color: black">
+        <li><a href="#">运维平台</a></li>
+        <li style="float: right"><a href="#s2">{{ request.session.user }}</a>
+            <ul>
+                <li><a href="#">个人信息</a></li>
+                <li><a href="/logout.html">退出</a></li>
+
+            </ul>
+        </li>
+        </li>
+
+    </ul>
+</div>
+
+<div style="margin-top: 58px;width: 160px">
+    <div>
+
+    </div>
+    <div style="width: 150px">
+        <div>
+            <li><a href="/index.html"><span>主机列表</span></a></li>
+            <li><a href="/show/add"><span>添加主机</span></a></li>
+            <li><a href="/show/service"><span>添加业务线</span></a></li>
+
+        </div>
+        <div>
+            <ul>
+                <li><a href="#"><span>添加主机</span></a></li>
+                <li><a href="#"><span>删除主机</span></a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li><a href="#"><span>添加监控</span></a></li>
+                <li><a href="#"><span>删除监控</span></a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li><a href="#"><span>添加监控</span></a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li><a href="#"><span>添加监控</span></a></li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+
+
+
+
+

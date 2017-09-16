@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+    <style>
+        .error_div {
+            width: 300px;
+            height: 20px;
+            color: white;
+            border-color: #ebccd1;
+            margin-left: 10px;
+
+        }
+        .error_div1 {
+            margin-top: 45px;
+            width: 300px;
+            height: 20px;
+            color: white;
+            border-color: #ebccd1;
+            margin-left: 10px;
+
+        }
+        .error_div2 {
+            width: 300px;
+            height: 20px;
+            color: red;
+            border-color: #c9302c;
+            margin-left: 10px;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body >
+		<div >
+			<div >
+				<div id="large-header" style="height: 1094px;">
+					<canvas id="demo-canvas" width="1360" height="1094"></canvas>
+					<div >
+						<h3>运维</h3>
+{#						<form action="#" name="f">#}
+							<div>
+								<span ></span>
+								<input id='username' name="user"style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+							</div>
+							<div>
+								<span></span>
+								<input  id='password' name="pass"style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码">
+							</div>
+{#
+                            <div ><button  id='mybtn'  style="color: #FFFFFF;width: 330px;border: none;opacity:0.9; ">登录</button></div>
+                        <a href="/register.html"><div ><button  id='mybtn1'  style="color: #FFFFFF;width: 330px;border: none;opacity:0.9;">注册</button></div></a>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+
+        <script>
+                $('#mybtn').click(function () {
+                    $('#username').next().remove();
+                    $('#password').next().remove();
+                    $('#username').parent().parent().find(".error_div2").remove();
+                    var flag = true;
+                    var user_name = $('#username').val();
+                    var user_pwd =  $('#password').val();
+                    if (flag){
+                        $.ajaxSetup({
+                             data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+                        });
+                        $.ajax({
+                            url:'/login.html',
+                            type:'POST',
+                            data:{"username":user_name,"password":user_pwd},
+                            dataType:"JSON",
+                            success:function (data) {
+                                   if (data.status){
+                                       location.href = '/index.html'
+                                   }
+                                   else{
+                                       console.log(data);
+                                       $.each(data.error,function (k,v) {
+                                           if (k == 'username'){
+                                               var $msg = "<div class='error_div'>" + v[0] + '</div>';
+                                               $('#' + k).after($msg)
+                                           }else if  (k == 'password'){
+                                               var $msg = "<div class='error_div1'>" + v[0] + '</div>';
+                                               $('#' + k).after($msg)
+                                           }else{
+                                               var $msg = "<div class='error_div2'>" + v + '</div>';
+                                               $('#username').parent().before($msg);
+                                               $('#password').val('');
+                                           }
+
+                                       });
+                                   }
+                                }
+                        })
+                    }
+
+                })
+
+        </script>
+
+</body>
+</html>

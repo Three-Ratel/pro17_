@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>title</title>
+
+    <style>
+        .error_div {
+            width: 300px;
+            height: 20px;
+            color: white;
+            border-color: #ebccd1;
+            margin-left: 10px;
+
+        }
+        .error_div1 {
+            margin-top: 45px;
+            width: 300px;
+            height: 20px;
+            color: white;
+            border-color: #ebccd1;
+            margin-left: 10px;
+
+        }
+        .error_div2 {
+            width: 300px;
+            height: 20px;
+            color: red;
+            border-color: #c9302c;
+            margin-left: 10px;
+            text-align: center;
+
+        }
+        .error_div3 {
+            width: 300px;
+            height: 20px;
+            color: red;
+            border-color: #c9302c;
+            margin-left: 10px;
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body >
+		<div>
+			<div >
+				<div id="large-header"  style="height: 1094px;">
+					<canvas id="demo-canvas" width="1360" height="1094"></canvas>
+					<div >
+						<h3>运维注册</h3>
+{#
+							<div >
+								<span ></span>
+								<input id='username' name="logname"style="color: #FFFFFF !important" type="text" placeholder="请输入账户名">
+							</div>
+							<div>
+								<span></span>
+								<input  id='password' name="logpass"  style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码">
+							</div>
+							<div >
+								<span ></span>
+								<input  id='password_retry' name="logpass1"  style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请再次输入密码">
+							</div>
+                            <div >
+								<span  style="background-position:-84px 0px"></span>
+								<input  id='email' name="email" style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="text" placeholder="请输入邮箱">
+							</div>
+{#
+                            <div ><button  id='mybtn' style="color: #FFFFFF;width: 330px;border: none;opacity:0.9;">注册</button></div>
+                        <a href="/login.html"><div><button  id='mybtn1' style="color: #FFFFFF;width: 330px;border: none;opacity:0.9;">返回</button></div></a>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+
+
+        <script>
+                $my_tag1 = true;
+                $my_tag2 = true;
+                $('#username').blur(function () {
+                   $('#username').parent().parent().find(".error_div3").remove();
+                    $('#username').parent().parent().find(".error_div").remove();
+                   $.ajax({
+                       url:'/check_user',
+                       type:'POST',
+                       data:$(this).serialize(),
+                       dataType:'JSON',
+                       headers: {"X-CSRFToken": $.cookie('csrftoken')},
+                       success:function (data) {
+                           if (data.status){
+                                $('#username').parent().before('<div class="error_div3"></div>');
+                                $('#username').parent().prev().text($('#username').val()+'用户名已经存在');
+                                $my_tag1 = false
+                           }
+                           else{
+                               $my_tag1 = true
+                           }
+                       }
+                   })
+                });
+
+                $('#password_retry').blur(function () {
+                    $(this).parent().parent().find(".error_div2").remove();
+                    $('#password_retry').next().remove();
+                    $('#password').next().remove();
+                   if ($('#password').val() != $(this).val()){
+                       $(this).parent().before('<div >两次密码不一致样</div>');
+                       $my_tag2 = false;
+                   }else{
+                       $my_tag2 = true;
+                   }
+                });
+
+
+                $('#mybtn').click(function () {
+                    if ($my_tag1 && $my_tag2) {
+                        $('#username').next().remove();
+                        $('#password').next().remove();
+                        $('#password_retry').next().remove();
+                        $('#email').next().remove();
+                        var flag = true;
+                        var user_name = $('#username').val();
+                        var user_pwd = $('#password').val();
+                        var user_pwd1 = $('#password_retry').val();
+                        var user_email = $('#email').val();
+                        if (flag) {
+                            $.ajax({
+                                url: '/register.html',
+                                type: 'POST',
+                                data: {"username": user_name, "password": user_pwd,"password_retry":user_pwd1,"email":user_email},
+                                dataType: "JSON",
+                                headers: {"X-CSRFToken": $.cookie('csrftoken')},
+                                success: function (data) {
+                                    if (data.status) {
+                                        alert('success');
+                                        location.href = '/login.html'
+                                    }else{
+                                        console.log(data);
+                                        $.each(data.error,function (k,v) {
+                                           if (k == 'username'){
+                                               var $msg = "<div class='error_div'>" + v[0] + '</div>';
+                                               $('#' + k).after($msg)
+                                           }else {
+                                               var $msg = "<div class='error_div1'>" + v[0] + '</div>';
+                                               $('#' + k).after($msg);
+                                           }
+                                    }
+                                        )}
+                                }
+                            })
+                        }
+                    }
+                })
+
+
+        </script>
+
+</body>
+</html>

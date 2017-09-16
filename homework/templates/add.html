@@ -1,0 +1,116 @@
+{% extends "src.html"  %}
+{% block user %}{{ user }}{% endblock %}
+{% block action %}Add{% endblock %}
+{% block content %}
+    <form  style="padding: 50px 150px">
+        {% csrf_token %}
+      <div >
+        <label for="hostname" >主机名:</label>
+        <div>
+          <input type="text" id="hostname" placeholder="Name" name="title_name" >
+        </div>
+      </div>
+      <div ">
+        <label for="ip" >IP:</label>
+        <div>
+          <input type="text"  id="ip" placeholder="IP" name="price_num" >
+        </div>
+      </div>
+          <div >
+        <label for="port" >端口:</label>
+        <div >
+          <input type="text"  id="port" placeholder="Port" name="price_num">
+        </div>
+      </div>
+      <div >
+        <label for="publish" >业务线:</label>
+        <div>
+            <select name="service" size="1" id="service" >
+                {% for info in service_list %}
+                <option value={{ info.id }}>{{ info.name }}</option>
+                 {% endfor %}
+            </select>
+        </div>
+      </div>
+    </form>
+
+    <div  style="margin-top: -50px">
+        <div >
+            <button id="mybtn"  style="width: 100px">提交</button>
+            <a href="/index.html" style="margin-left: 50px;vertical-align: -2px">返回</a>
+        </div>
+    </div>
+
+
+<script>
+
+
+
+        $flag = true;
+        $my_tag = true;
+    $('#hostname').blur(function () {
+        $(this).siblings().remove();
+        var host_name = $(this).val();
+        $.ajax({
+            url: "/show/check_host",
+            type: "POST",
+            data: {"hostname": $('#hostname').val()},
+            dataType: "JSON",
+            headers: {"X-CSRFToken": $.cookie('csrftoken')},
+            success: function (data) {
+                if(data.status){
+                    $('form').find('[role="alert1"]').remove();
+                    $('#hostname').after('<div style="line-height: 3px;margin-top: 5px">' + host_name +'已经存在!'+ '</div>');
+                    $my_tag = false;
+                    $flag = false
+                }else{
+                    $('#hostname').next().remove();
+                    $my_tag = true;
+                    $flag = true;
+                }
+            }
+        });
+    });
+
+    //点击事件绑定 提交并清理空输入内容
+    $('#mybtn').click(function () {
+        if ($my_tag){
+            $flag = true
+        }
+        $('.form-group').removeClass('has-error');
+        $('form').find('[role="alert"]').remove();
+        $('form').find('[role="alert1"]').remove();
+        if ($flag) {
+            $.ajax({
+                url: '/show/add',
+                type: 'POST',
+                data: {
+                    "hostname": $('#hostname').val(),
+                    "ip": $('#ip').val(),
+                    "port": $('#port').val(),
+                    "service_line_id": $('#service').val()
+                },
+                dataType: "JSON",
+                headers: {"X-CSRFToken": $.cookie('csrftoken')},
+                success: function (data) {
+                    if (data.status) {
+                        alert('success');
+                        $('#hostname').val('');
+                        $('#ip').val('');
+                        $('#port').val('');
+                    } else {
+                        console.log(data);
+                        $.each(data.error,function (k,v) {
+                            var $error_msg =  '<div class="alert alert-danger col-md-12 " role="alert1" style="line-height: 3px;margin-top: 5px">' + v[0] + '</div>';
+                            $('#' + k).after($error_msg)
+
+                        })
+                    }
+
+                }
+            })
+        }
+    })
+
+</script>
+{% endblock %}
