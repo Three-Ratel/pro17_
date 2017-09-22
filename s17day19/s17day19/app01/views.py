@@ -1,17 +1,25 @@
 from django.shortcuts import render, HttpResponse, redirect
 from app01 import models
 from app01.utils import md5
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
+
+#装饰器:csrf_exempt指定某个视图函数不使用
+#装饰器:csrf_protect 指定某个视图函数使用,默认全站不启用
+
 import datetime
 
-#用装饰器 可以不用每个views都写获取session
+
+# 用装饰器 可以不用每个views都写获取session
 def auth(func):
-    def inner(request,*args,**kwargs):
+    def inner(request, *args, **kwargs):
         ck = request.session.get('yyyyyyyy')
         print(ck)
         if not ck:
             return redirect('/login.html')
-        return func(request,*args,**kwargs)
+        return func(request, *args, **kwargs)
+
     return inner
+
 
 # Create your views here.
 def index(request):
@@ -23,12 +31,14 @@ def index(request):
     print(ck)
     if not ck:
         return redirect('/login.html')
-    user=request.session.get('yyyyyyyy')
-    return render(request,'index.html',{'user':user})
+    user = request.session.get('yyyyyyyy')
+    return render(request, 'index.html', {'user': user})
+
 
 @auth
 def order(request):
-    return HttpResponse('订单列表' )
+    return HttpResponse('订单列表')
+
 
 def login(request):
     if request.method == "GET":
@@ -54,6 +64,19 @@ def login(request):
             return redirect('/index.html')
         else:
             return render(request, 'login.html', {'msg': '用户名或密码错误'})
+
+
 def logout(request):
     request.session.clear()
     return redirect('/index.html')
+
+
+def icbc(request):
+    if request.method == 'GET':
+        return render(request, 'icbc.html')
+    else:
+        return HttpResponse('...')
+
+def test(request):
+    # return render(request,'test.html',{'a':123})
+    return render(request,'test.html',{'a':'xp'})
