@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/dist/js/jquery-3.1.1.js"></script>
+    <script src="/static/jquery.cookie.js"></script>
+</head>
+<body>
+<form action="/icbc.html" method="post" id="f1">
+    {% csrf_token %}
+{#    {{ csrf_token }}#}
+    <input type="text" name="from">
+    <input type="text" name="to">
+    <input type="text" name="money">
+    <input type="submit" value="转账">
+    <a onclick="ajaxSubmit();">Ajax提交</a>
+</form>
+<script>
+    function ajaxSubmit() {
+
+        $.ajax( {
+            url: 'icbc.html',
+            type: 'POST',
+{#            基于请求头#}
+{#    #方法一#}
+{#            data: {'k1': 'v1', 'k2': 'v2', 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},#}
+{#    #方法二#}
+            {#             data: {'k1': 'v1', 'k2': 'v2', 'csrfmiddlewaretoken':"{{csrf_token}}"},#}
+{#    #方法三 常用#}
+            {#              data: $('#f1').serialize(),#}
+{#    #方法四 基于请求头 常用#}
+                data:{'k1':'v1'},
+                headers:{"X-CSRFtoken":$.cookie('csrftoken')},
+
+            success: function (arg) {
+                console.log(arg)
+
+            }
+        })
+    }
+</script>
+</body>
+</html>
