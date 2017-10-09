@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function showLinkCount($this, text) {
+        var fontSize = 5;
+        var top = 0;
+        var right = 0;
+        var opacity = 1;
+        var tag = document.createElement('span');
+        tag.innerText = text;
+        tag.style.position = 'absolute';
+        tag.style.fontSize = fontSize + 'px';
+        tag.style.top = top + 'px';
+        tag.style.right = right + 'px';
+        tag.style.opacity = opacity;
+        $this.after(tag);
+    }
+    //定时器,每0.5s执行一次
+    var obj=setInterval(function () {
+        fontSize += 5;
+        top -= 5;
+        right -= 5;
+        opacity -= 0.1;
+
+        tag.style.fontSize=fontSize + 'px';
+        tag.style.top=top+'px';
+        tag.style.right=right + 'px';
+        tag.style.opacity=opacity;
+    })
+</script>
+
+
+</body>
+</html>

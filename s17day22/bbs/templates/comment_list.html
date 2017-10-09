@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>评论</h1>
+    {{ comment_html|safe }}
+<h1>菜单</h1>
+<hr/>
+<div></div>
+<script src="/static/jquery-3.1.1.js"></script>
+<script>
+        $(function () {
+            $('.title').click(function () {
+                if ($(this).next().hasClass('hide')){
+                    $(this).next().removeClass('hide')
+                }else{
+                    $(this).next().addClass('hide')
+                }
+            })
+        })
+    </script>
+
+</body>
+</html>
