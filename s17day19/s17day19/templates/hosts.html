@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>主机列表</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>主机名</th>
+        <th>端口</th>
+
+    </tr></thead>
+    <tbody>
+    {% for row in host_list %}
+    <tr>
+    <td>{{ row.id }}</td>
+    <td>{{ row.hostname }}</td>
+    <td>{{ row.port }}</td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+<div>
+    <a href="/hosts.html/?page=1">1</a>
+     <a href="/hosts.html/?page=2">2</a>
+     <a href="/hosts.html/?page=3">3</a>
+     <a href="/hosts.html/?page=4">4</a>
+</div>
+</body>
+</html>

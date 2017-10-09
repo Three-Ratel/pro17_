@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^logout.html/', views.logout),
     url(r'^icbc.html/', views.icbc),
     url(r'^test.html/', views.test),
+    url(r'^hosts.html/', views.hosts),
 ]

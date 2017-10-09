@@ -80,3 +80,31 @@ def icbc(request):
 def test(request):
     # return render(request,'test.html',{'a':123})
     return render(request,'test.html',{'a':'xp'})
+
+def hosts(request):
+    '''
+    主机列表
+    :param request:请求相关的所有数据 
+    :return: 
+    '''
+
+    #创建三百条数据
+    # for i in range(1,303):
+    #     # models.Host.objects.bulk_create()
+    #     hostname='c%s.com' %i
+    #     port=i
+    #     models.Host.objects.create(hostname=hostname,port=port)
+    # return HttpResponse('创建成功')
+
+    #当前页
+    current_page=int(request.GET.get('page'))
+    #每页显示10条数据
+    per_page=10
+    #1 0-10
+    #2 10-20
+    #开头和结尾
+    start=(current_page-1)*per_page
+    end=current_page*per_page
+
+    host_list=models.Host.objects.all()[start:end]  #[]限制范围
+    return render(request,'hosts.html',{'host_list':host_list})
