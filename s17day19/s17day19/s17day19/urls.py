@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^index.html/', views.index),
     url(r'^order.html/', views.order),
     url(r'^logout.html/', views.logout),
-    url(r'^icbc.html/', views.icbc),
+    # url(r'^icbc.html/', views.icbc),
     url(r'^test.html/', views.test),
     url(r'^hosts.html/', views.hosts),
+    # url(r'^hostsnew.html/', views.hostsnew),
+
 ]
