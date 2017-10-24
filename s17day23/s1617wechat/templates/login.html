@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img src="https://login.weixin.qq.com/qrcode/{{ qcode }}">
+<script src="/static/jquery-3.2.1.js"></script>
+<script>
+    $(function () {
+        checkLogin();
+    });
+    function checkLogin() {
+        $.ajax({
+            url: '/check_login.html',
+            type: 'GET',
+            success: function (arg) {
+                checkLogin();
+            }
+
+
+        })
+    }
+</script>
+</body>
+</html>
